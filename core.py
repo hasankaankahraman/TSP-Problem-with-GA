@@ -37,20 +37,32 @@ def selection(population, k=3):
 def crossover(parent1, parent2):
     size = len(parent1)
     
-    # Rastgele iki kesme noktası belirle
+    # 1. Babadan rastgele bir parça seç
     start, end = sorted(random.sample(range(size), 2))
     
-    # 1. parentten bir parça al
-    child_p1 = parent1[start:end]
+    # Çocuğu boş (-1) olarak başlat
+    child = [-1] * size
     
-    # 2. parentte olup çocukta olmayan!!! şehirleri sırasıyla bul
-    child_p2 = [item for item in parent2 if item not in child_p1]
+    # Babanın parçasını çocuğa aynen kopyala (Aynı konuma)
+    child[start:end] = parent1[start:end]
     
-    # Baba parçasını ortaya koy gerisini sırayla doldur
-    child = child_p2[:start] + child_p1 + child_p2[start:]
+    # 2. Anne'den kalanları sırayla doldur
+    # Anne'nin genlerini sırayla gez
+    current_pos = end # Doldurmaya babanın parçasının bittiği yerden başla
     
+    for i in range(size):
+        # Anne'nin i. şehri (sırayla bakıyoruz)
+        city = parent2[(end + i) % size] 
+        
+        # Eğer bu şehir babadan aldığımız parçada YOKSA, ekle
+        if city not in child[start:end]:
+            if current_pos >= size: # Liste sonuna geldik mi?
+                current_pos = 0     # Başa dön (Döngüsel yapı)
+            
+            child[current_pos] = city
+            current_pos += 1
+            
     return child
-
 # MUTASYON
 def mutate(route, mutation_rate):
     for i in range(len(route)):
