@@ -5,7 +5,7 @@ from models import City
 import core 
 
 def show_crossover_demo():
-    print("--- CROSSOVER (ÇAPRAZLAMA) MANTIK ÖRNEĞİ ---")
+    print("--- CROSSOVER (ÇAPRAZLAMA) ÖRNEĞİ ---")
     
     # 0'dan 9'a kadar temsili sehirler
     demo_cities = list(range(10)) 
@@ -25,7 +25,7 @@ def main():
     pop_size = 100
     elite_size = 10       
     mutation_rate = 0.09  
-    generations = 1000    # Nesil sayisi
+    generations = 5000    # Nesil sayisi
         
     # Veri Seti Secimi
     dataset_name = "berlin52" 
